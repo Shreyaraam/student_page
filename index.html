@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Student Management System</title>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+  <!-- App Shell -->
+  <header class="topbar">
+    <div class="brand">
+      <span class="emoji">🎓</span>
+      <span class="title">Student Management System</span>
+    </div>
+    <div class="user-slot">
+      <span id="user-email" class="user-email"></span>
+      <button onclick="logoutUser()" class="btn btn-danger btn-sm">Logout</button>
+       
+    </div>
+  </header>
+
+  <main class="app">
+    <!-- Auth -->
+    <section id="auth-section" class="auth-section card">
+      <div class="tabs tabs-auth">
+        <button class="tab-btn active" onclick="switchAuthTab('login')">Login</button>
+        <button class="tab-btn" onclick="switchAuthTab('signup')">Sign Up</button>
+      </div>
+
+      <div id="login-tab" class="tab-content active">
+        <div class="grid grid-2">
+          <div class="form-group">
+            <label for="login-email">Email</label>
+            <input type="email" id="login-email" required />
+          </div>
+          <div class="form-group">
+            <label for="login-password">Password</label>
+            <input type="password" id="login-password" required />
+          </div>
+        </div>
+        <button class="btn btn-primary" onclick="loginUser()">Login</button>
+      </div>
+
+      <div id="signup-tab" class="tab-content">
+        <div class="grid grid-2">
+          <div class="form-group">
+            <label for="signup-email">Email</label>
+            <input type="email" id="signup-email" required />
+          </div>
+          <div class="form-group">
+            <label for="signup-password">Password</label>
+            <input type="password" id="signup-password" required />
+          </div>
+        </div>
+        <button class="btn btn-primary" onclick="signupUser()">Sign Up</button>
+      </div>
+    </section>
+
+    <!-- Main App -->
+    <section id="main-app" class="hidden">
+      <div id="messages" class="messages"></div>
+
+      <nav class="tabs tabs-main card">
+        <button class="tab-btn active" onclick="switchTab('student')">Student Registration</button>
+        <button class="tab-btn" onclick="switchTab('faculty')">Faculty Registration</button>
+        <button class="tab-btn" onclick="switchTab('subject')">Subject Management</button>
+        <button class="tab-btn" onclick="switchTab('subject-reg')"> Bulk Subject Registration</button>
+        <button class="tab-btn" onclick="switchTab('timetable')">Timetable Management</button>
+        <button class="tab-btn" onclick="switchTab('view')">View Data</button>
+      </nav>
+
+      <!-- Student Registration -->
+      <section id="student-tab" class="tab-content active card">
+        <h2>Student Registration</h2>
+        <form id="student-form" class="form">
+          <div class="grid grid-3">
+            <div class="form-group">
+              <label for="student-name">Full Name</label>
+              <input type="text" id="student-name" required />
+            </div>
+            <div class="form-group">
+              <label for="student-email">Email</label>
+              <input type="email" id="student-email" required />
+            </div>
+            <div class="form-group">
+              <label for="student-number">Student Number</label>
+              <input type="text" id="student-number" required />
+            </div>
+
+            <div class="form-group">
+              <label for="student-department">Department</label>
+              <select id="student-department" required>
+                <option value="">Select Department</option>
+                <option value="Electronics and Telecommunication">Electronics and Telecommunication</option>
+                <option value="Electronics and Communication">Electronics and Communication</option>
+                <option value="Electronics and Electrical">Electronics and Electrical</option>
+                <option value="Electronics and Instrumentation">Electronics and Instrumentation</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="student-year">Semester</label>
+              <select id="student-year" required>
+                <option value="">Select Semester</option>
+                <option value="1">1st Sem</option>
+                <option value="2">2nd Sem</option>
+                <option value="3">3rd Sem</option>
+                <option value="4">4th Sem</option>
+                <option value="5">5th Sem</option>
+                <option value="6">6th Sem</option>
+                <option value="7">7th Sem</option>
+                <option value="8">8th Sem</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Select Subjects</label>
+            <div id="subject-checkboxes" class="checkbox-group">
+              <!-- Loaded by JS -->
+              <p>Loading subjects…</p>
+            </div>
+          </div>
+
+          <button type="submit" class="btn btn-primary">Register Student</button>
+        </form>
+      </section>
+
+      <!-- Faculty Registration -->
+      <section id="faculty-tab" class="tab-content card">
+        <h2>Faculty Registration</h2>
+        <form id="faculty-form" class="form">
+          <div class="grid grid-3">
+            <div class="form-group">
+              <label for="faculty-name">Full Name</label>
+              <input type="text" id="faculty-name" required />
+            </div>
+            <div class="form-group">
+              <label for="faculty-email">Email</label>
+              <input type="email" id="faculty-email" required />
+            </div>
+            <div class="form-group">
+              <label for="faculty-department">Department</label>
+              <select id="faculty-department" required>
+                <option value="">Select Department</option>
+                <option value="Electronics and Telecommunication">Electronics and Telecommunication</option>
+                <option value="Electronics and Communication">Electronics and Communication</option>
+                <option value="Electronics and Electrical">Electronics and Electrical</option>
+                <option value="Electronics and Instrumentation">Electronics and Instrumentation</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="faculty-designation">Designation</label>
+              <select id="faculty-designation" required>
+                <option value="">Select Designation</option>
+                <option value="Professor">Professor</option>
+                <option value="Associate Professor">Associate Professor</option>
+                <option value="Assistant Professor">Assistant Professor</option>
+                <option value="Lecturer">Lecturer</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Teaching Subjects</label>
+            <div id="faculty-subject-checkboxes" class="checkbox-group">
+              <!-- Loaded by JS -->
+              <p>Loading subjects…</p>
+            </div>
+          </div>
+
+          <button type="submit" class="btn btn-primary">Register Faculty</button>
+        </form>
+      </section>
+
+      <!-- Subject Management -->
+      <section id="subject-tab" class="tab-content card">
+        <h2>Subject Management</h2>
+        <form id="subject-form" class="form">
+          <div class="grid grid-3">
+            <div class="form-group">
+              <label for="subject-code">Subject Code</label>
+              <input type="text" id="subject-code" placeholder="e.g., MATH101" required />
+            </div>
+            <div class="form-group">
+              <label for="subject-name">Subject Name</label>
+              <input type="text" id="subject-name" placeholder="e.g., Calculus I" required />
+            </div>
+            <div class="form-group">
+              <label for="subject-credits">Credits</label>
+              <input type="number" id="subject-credits" min="1" max="10" required />
+            </div>
+            <div class="form-group">
+              <label for="subject-department">Department</label>
+              <select id="subject-department" required>
+                <option value="">Select Department</option>
+                <option value="Electronics and Telecommunication">Electronics and Telecommunication</option>
+                <option value="Electronics and Communication">Electronics and Communication</option>
+                <option value="Electronics and Electrical">Electronics and Electrical</option>
+                <option value="Electronics and Instrumentation">Electronics and Instrumentation</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="subject-semester">Semester</label>
+              <select id="subject-semester" required>
+                <option value="">Select Semester</option>
+                <option value="1">1st Semester</option>
+                <option value="2">2nd Semester</option>
+                <option value="3">3rd Semester</option>
+                <option value="4">4th Semester</option>
+                <option value="5">5th Semester</option>
+                <option value="6">6th Semester</option>
+                <option value="7">7th Semester</option>
+                <option value="8">8th Semester</option>
+              </select>
+            </div>
+          </div>
+          <button type="submit" class="btn btn-primary">Add Subject</button>
+        </form>
+      </section>
+
+      <!-- Subject Registration -->
+      <section id="subject-reg-tab" class="tab-content card">
+        <h2> Bulk Subject Registration</h2>
+        <form id="subject-reg-form" class="form">
+          <div class="grid grid-3">
+            <div class="form-group">
+              <label for="reg-subject-code">Subject Name</label>
+              <select id="reg-subject-code" required>
+                <option value="">Select Subject</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="reg-subject-name">Subject Code</label>
+              <input type="text" id="reg-subject-name" readonly />
+            </div>
+            <div class="form-group">
+              <label for="reg-subject-semester">Semester</label>
+              <input type="text" id="reg-subject-semester" readonly />
+            </div>
+            <div class="form-group">
+              <label for="reg-student-year">Select Semester</label>
+              <select id="reg-student-year" required>
+                <option value="">Select Semester to View Students</option>
+                <option value="1">1st Sem</option>
+                <option value="2">2nd Sem</option>
+                <option value="3">3rd Sem</option>
+                <option value="4">4th Sem</option>
+                <option value="5">5th Sem</option>
+                <option value="6">6th Sem</option>
+                <option value="7">7th Sem</option>
+                <option value="8">8th Sem</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="subject-department">Department</label>
+              <select id="subject-department" required>
+                <option value="">Select Department</option>
+                <option value="Electronics and Telecommunication">Electronics and Telecommunication</option>
+                <option value="Electronics and Communication">Electronics and Communication</option>
+                <option value="Electronics and Electrical">Electronics and Electrical</option>
+                <option value="Electronics and Instrumentation">Electronics and Instrumentation</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Select Students to Register</label>
+            <div id="student-checkboxes" class="checkbox-group">
+              <p>Please select a year to view students.</p>
+            </div>
+          </div>
+
+          <button type="submit" class="btn btn-primary">Register Students to Subject</button>
+        </form>
+      </section>
+
+      <!-- Timetable -->
+      <section id="timetable-tab" class="tab-content card">
+        <h2>Timetable Management</h2>
+        <form id="timetable-form" class="form">
+          <div class="grid grid-4">
+            <div class="form-group">
+              <label for="tt-semester">Semester</label>
+              <select id="tt-semester" required>
+                <option value="">Select Semester</option>
+                <option value="1">1st Semester</option>
+                <option value="2">2nd Semester</option>
+                <option value="3">3rd Semester</option>
+                <option value="4">4th Semester</option>
+                <option value="5">5th Semester</option>
+                <option value="6">6th Semester</option>
+                <option value="7">7th Semester</option>
+                <option value="8">8th Semester</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="tt-day">Day</label>
+              <select id="tt-day" required>
+                <option value="">Select Day</option>
+                <option>Monday</option>
+                <option>Tuesday</option>
+                <option>Wednesday</option>
+                <option>Thursday</option>
+                <option>Friday</option>
+                <option>Saturday</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="tt-start-time">Start Time</label>
+              <input type="time" id="tt-start-time" required />
+            </div>
+            <div class="form-group">
+              <label for="tt-end-time">End Time</label>
+              <input type="time" id="tt-end-time" required />
+            </div>
+            <div class="form-group">
+              <label for="tt-subject">Subject</label>
+              <select id="tt-subject" required>
+                <option value="">Select Subject</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="tt-room">Room</label>
+              <input type="text" id="tt-room" placeholder="e.g., B-204" />
+            </div>
+          </div>
+          <button type="submit" class="btn btn-primary">Add Timetable Entry</button>
+        </form>
+
+        <div class="card soft mt-24">
+          <h3>View Timetable</h3>
+          <div class="grid grid-3 mt-12">
+            <div class="form-group">
+              <label for="view-tt-semester">Select Semester to View</label>
+              <select id="view-tt-semester" onchange="viewTimetable(this.value)">
+                <option value="">Select Semester</option>
+                <option value="1">1st Semester</option>
+                <option value="2">2nd Semester</option>
+                <option value="3">3rd Semester</option>
+                <option value="4">4th Semester</option>
+                <option value="5">5th Semester</option>
+                <option value="6">6th Semester</option>
+                <option value="7">7th Semester</option>
+                <option value="8">8th Semester</option>
+              </select>
+            </div>
+          </div>
+          <div id="timetable-display" class="mt-12"></div>
+        </div>
+      </section>
+
+      <!-- View Data -->
+      <section id="view-tab" class="tab-content card">
+        <h2>View Data</h2>
+        <div class="tabs tabs-sub">
+          <button class="tab-btn active" onclick="switchViewTab('students')">Students</button>
+          <button class="tab-btn" onclick="switchViewTab('faculty')">Faculty</button>
+          <button class="tab-btn" onclick="switchViewTab('subjects')">Subjects</button>
+        </div>
+        <div id="view-content" class="scroll-area">
+          <!-- Filled by JS -->
+        </div>
+      </section>
+    </section>
+  </main>
+
+  <script src="app.js" type="module"></script>
+  <script src="tabs.js"></script>
+</body>
+</html>
