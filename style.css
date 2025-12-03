@@ -1,0 +1,241 @@
+/* Reset */
+/* Auth (login/signup) specific tweaks */
+.auth-section {
+  max-width: 640px;
+  margin: 56px auto;
+  padding: 24px;
+}
+
+.tabs-auth { justify-content: center; margin-bottom: 16px; }
+
+.tabs-auth .tab-btn.active {
+  background: #4f46e5;
+  border-color: #4f46e5;
+}
+
+#auth-section .grid-2 { grid-template-columns: 1fr; } /* stack on small screens */
+@media (min-width: 640px) {
+  #auth-section .grid-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { height: 100%; }
+body {
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  background: #6c7d9c;
+  color: #0f172a; /* slate-900 */
+  line-height: 1.45;
+}
+
+/* Layout */
+.topbar {
+  position: sticky; top: 0; z-index: 10;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 14px 24px;
+  background: #111827; /* gray-900 */
+  color: #ffffff;
+  border-bottom: 1px solid #1f2937;
+}
+.topbar .brand { display: flex; align-items: center; gap: 10px; }
+.topbar .emoji { font-size: 20px; }
+.topbar .title { font-weight: 700; letter-spacing: .2px; }
+.topbar .user-slot { display: flex; align-items: center; gap: 12px; }
+.user-email { font-size: 0.95rem; color: #d1d5db; }
+
+.app {
+  max-width: 1200px;
+  margin: 24px auto 48px;
+  padding: 0 20px;
+}
+
+.card {
+  background: #ffffff;
+  border: 1px solid #ffffff;
+  border-radius: 14px;
+  padding: 20px;
+  box-shadow: 0 1px 2px rgba(0,0,0,.04);
+  margin-bottom: 20px;
+}
+.card.soft { background: #fafafa; }
+
+.mt-12 { margin-top: 12px; }
+.mt-24 { margin-top: 24px; }
+
+/* Tabs */
+.tabs { display: flex; flex-wrap: wrap; gap: 8px; }
+.tabs-auth { justify-content: center; margin-bottom: 16px; }
+.tabs-main { position: sticky; top: 72px; background: #fff; z-index: 5; }
+.tabs-sub { margin-top: 8px; margin-bottom: 16px; }
+
+.tab-btn {
+  appearance: none;
+  border: 1px solid #d1d5db;
+  background: #f9fafb;
+  color: #111827;
+  padding: 10px 14px;
+  border-radius: 10px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all .15s ease;
+}
+.tab-btn:hover { background: #f3f4f6; }
+.tab-btn.active {
+  background: #1f2937; border-color: #1f2937; color: #feffff;
+  transform: translateY(-1px);
+}
+
+.tab-content { display: none; }
+.tab-content.active { display: block; }
+
+/* Forms */
+.form { display: block; }
+.grid { display: grid; gap: 16px; }
+.grid-2 { grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
+.grid-3 { grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
+.grid-4 { grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); }
+
+.form-group { display: flex; flex-direction: column; gap: 6px; }
+label { font-size: 0.95rem; font-weight: 600; color: #111827; }
+input, select {
+  width: 100%;
+  padding: 25px 30px;       /* increased padding for taller boxes */
+  border: 2px solid #576781;
+  border-radius: 12px;
+  background: #ffffff;
+  font-size: 1.1rem;        /* larger text */
+  transition: border-color .15s, box-shadow .15s;
+}
+
+input:focus, select:focus {
+  outline: none;
+  border-color: #4f46e5; /* indigo-600 */
+  box-shadow: 0 0 0 4px rgba(79,70,229,.12);
+}
+input[readonly] { background: #f9fafb; color: #6b7280; }
+
+/* Checkbox grid */
+.checkbox-group {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 10px;
+  padding: 12px;
+  border: 1px dashed #e5e7eb;
+  border-radius: 10px;
+  background: #f9f8f8;
+  max-height: 260px;
+  overflow: auto;
+}
+.checkbox-group p { margin: 0; color: #ffffff; font-style: italic; }
+.checkbox-item {
+  display: flex; align-items: center; gap: 10px;
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  padding: 10px;
+}
+.checkbox-item:hover { border-color: #c7d2fe; background: #f8fafc; }
+
+/* Buttons & messages */
+.btn {
+  appearance: none; border: none; cursor: pointer;
+  padding: 12px 16px; border-radius: 10px;
+  font-weight: 700; letter-spacing: .2px;
+}
+.btn-sm { padding: 8px 10px; font-weight: 600; }
+.btn-primary { background: #4f46e5; color: #fff; }
+.btn-primary:hover { background: #4338ca; }
+.btn-danger { background: #ef4444; color: #fff; }
+.btn-danger:hover { background: #dc2626; }
+
+.messages { margin-bottom: 16px; }
+.message {
+  padding: 12px 14px; border-radius: 10px; margin-bottom: 8px;
+  border: 1px solid;
+}
+.message.success { background: #ecfdf5; border-color: #a7f3d0; color: #064e3b; }
+.message.error { background: #fef2f2; border-color: #fecaca; color: #7f1d1d; }
+
+.hidden { display: none !important; }
+
+/* Tables */
+.table-wrap { overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; font-size: 0.95rem; }
+thead th {
+  background: #111827; color: #fff; text-align: left;
+  padding: 12px; position: sticky; top: 0;
+}
+tbody td { padding: 10px 12px; border-bottom: 1px solid #e5e7eb; }
+tbody tr:nth-child(even) { background: #fafafa; }
+
+.scroll-area {
+  max-height: 420px;
+  overflow: auto;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  padding: 12px;
+  background: #fff;
+}
+/* Stack fields on the login form (one below the other) */
+#login-tab .grid-2 { 
+  grid-template-columns: 1fr !important;
+}
+.topbar .title {
+  font-size: 1.5rem;   /* Increase overall size */
+  font-weight: 700;    /* Bold text */
+  color: #ffffff;      /* Keep white text for dark topbar */
+  letter-spacing: 0.5px;
+}
+
+.topbar .emoji {
+  font-size: 1.8rem;   /* Make the 🎓 icon larger */
+  margin-right: 8px;
+}
+/* Stack all student registration fields vertically */
+#student-tab .grid-3 {
+  grid-template-columns: 1fr !important;
+}
+/* Stack all form fields vertically (for a clean, aligned layout) */
+#student-tab .grid-3,
+#faculty-tab .grid-3,
+#subject-tab .grid-3,
+#subject-reg-tab .grid-3,
+#timetable-tab .grid-4,
+#auth-section .grid-2 {
+  grid-template-columns: 1fr !important;
+}
+
+/* Add extra spacing between stacked fields for readability */
+#student-tab .form-group,
+#faculty-tab .form-group,
+#subject-tab .form-group,
+#subject-reg-tab .form-group,
+#timetable-tab .form-group,
+#auth-section .form-group {
+  margin-bottom: 1.5rem;
+}
+
+/* Keep checkbox grids (like Select Subjects, Teaching Subjects) intact */
+.checkbox-group {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 10px;
+  padding: 1rem;
+  border: 1px dashed #e5e7eb;
+  border-radius: 10px;
+  background: #fafafa;
+  max-height: 260px;
+  overflow-y: auto;
+}
+/* Small helper styles for bulk upload section */
+.divider {
+  border: none;
+  border-top: 1px solid #e5e7eb;
+  margin: 16px 0;
+}
+
+.hint {
+  font-size: 0.8rem;
+  color: #6b7280;
+  margin-top: 4px;
+  display: block;
+}
